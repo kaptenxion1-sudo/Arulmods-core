@@ -9,170 +9,120 @@
     <style>
         body { background: #0f172a; color: #ffffff; font-family: sans-serif; overflow-x: hidden; }
         .card-bg { background: #1e293b; border-radius: 20px; border: 1px solid #334155; }
-        .btn-menu { background: #1e293b; border: 1px solid #3b82f6; border-radius: 12px; padding: 10px; }
         .sidebar { background: #0f172a; border-left: 1px solid #334155; width: 280px; position: fixed; right: 0; top: 0; height: 100%; transform: translateX(100%); transition: 0.3s; z-index: 100; }
         .sidebar.active { transform: translateX(0); }
-        .terminal { background: #000000; font-family: 'Courier New', monospace; border: 1px solid #3b82f6; border-radius: 10px; padding: 15px; height: 160px; overflow-y: auto; font-size: 11px; box-shadow: inset 0 0 10px #000; }
-        .input-core { background: #0f172a; border: 1px solid #3b82f6; border-radius: 10px; width: 100%; padding: 12px; outline: none; color: #3b82f6; font-weight: bold; }
-        .btn-execute { background: linear-gradient(90deg, #1e40af, #3b82f6); width: 100%; padding: 12px; border-radius: 10px; font-weight: black; letter-spacing: 2px; margin-top: 10px; transition: 0.3s; }
-        .btn-execute:active { transform: scale(0.95); }
+        .feature-page { display: none; animation: fadeIn 0.4s ease; }
+        .feature-page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .terminal { background: #000; border: 1px solid #3b82f6; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 11px; height: 120px; overflow-y: auto; color: #3b82f6; }
+        input { background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; width: 100%; outline: none; margin-bottom: 10px; }
+        .btn-exe { background: #2563eb; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; text-transform: uppercase; }
     </style>
 </head>
 <body class="p-5">
 
-    <div class="flex justify-end mb-8">
-        <button onclick="toggleMenu()" class="btn-menu text-blue-500 text-2xl shadow-lg shadow-blue-500/20">
+    <div class="flex justify-between items-center mb-8">
+        <button onclick="showPage('home')" class="text-blue-500 font-black italic">ARULMODSS</button>
+        <button onclick="toggleMenu()" class="text-blue-500 text-2xl bg-[#1e293b] p-2 rounded-xl border border-blue-500/30">
             <i class="fa fa-bars"></i>
         </button>
     </div>
 
-    <div class="text-center mb-10">
-        <div class="w-24 h-24 rounded-full border-4 border-blue-600 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-blue-600/20">
-            <span class="text-4xl font-bold text-blue-500">A</span>
-        </div>
-        <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase">ArulMods</h1>
-        <p class="text-gray-400 text-sm mt-1 uppercase tracking-widest italic font-medium">Pelajar | Developer | Indonesia</p>
-        
-        <div class="mt-6 bg-[#1e293b]/50 border border-blue-900/50 px-6 py-2 rounded-full inline-block text-blue-300 text-xs font-bold">
-            <span id="bday-count">∞</span> hari menuju ulang tahun!
-        </div>
-    </div>
-
-    <div class="card-bg p-6 mb-6 border-t-4 border-blue-500 shadow-2xl">
-        <h2 id="activeModule" class="text-xs font-bold text-blue-400 mb-4 uppercase tracking-[0.2em]">Ready to Execute</h2>
-        <input type="text" id="targetInput" placeholder="Masukkan URL / Script / Nama..." class="input-core mb-2 shadow-inner">
-        <button onclick="runModule()" class="btn-execute uppercase font-black">Execute Command</button>
-        
-        <div class="terminal mt-4" id="terminalOutput">
-            <p class="text-blue-500 font-bold">[SYSTEM] ARULMODSS CORE V8.0 LOADED</p>
-            <p class="text-gray-500 text-[10px]">[INFO] Menunggu pemilihan modul dari sidebar menu...</p>
-        </div>
-    </div>
-
-    <div class="card-bg p-8 mb-6">
-        <h2 class="text-xl font-bold text-blue-500 mb-4 italic uppercase tracking-widest">Tentang Saya</h2>
-        <p class="text-gray-300 text-sm leading-relaxed">
-            Halo! Nama saya **Arul**, seorang pelajar berusia 17 tahun dari Indonesia. Saya memiliki passion di bidang pengembangan software dan senang mempelajari teknologi baru. Saat ini saya fokus mengembangkan skill pemrograman dan berharap bisa menjadi developer profesional di masa depan.
-        </p>
-    </div>
-
-    <div class="card-bg p-6 mb-6">
-        <h2 class="text-xl font-bold text-blue-500 mb-6 text-center italic uppercase tracking-widest">My ngoding</h2>
-        <div class="w-full aspect-square bg-[#0f172a] rounded-xl mb-6 border border-gray-700 flex items-center justify-center text-gray-500 overflow-hidden relative">
-            <span class="absolute text-[10px] text-blue-900 opacity-20">ARULMODSS_CORE_V8</span>
-            <img src="https://api.dicebear.com/7.x/identicon/svg?seed=Arul" alt="Arul Photo" class="w-full h-full object-cover">
-        </div>
-        <div class="text-center">
-            <h3 class="text-xl font-bold text-blue-400 uppercase tracking-widest">ArulMods</h3>
-            <div class="flex justify-around text-gray-500 text-[10px] mt-2 border-t border-gray-700 pt-4 font-bold uppercase">
-                <span>17th Edition</span>
-                <span>29 November</span>
+    <div id="page-home" class="feature-page active">
+        <div class="text-center mb-10">
+            <div class="w-24 h-24 rounded-full border-4 border-blue-600 flex items-center justify-center mx-auto mb-4">
+                <span class="text-4xl font-bold text-blue-500">A</span>
             </div>
-            <p class="mt-2 text-blue-300 font-black italic underline tracking-widest uppercase">Kang Ngoding</p>
+            <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase">ArulMods</h1>
+            <p class="text-gray-400 text-sm mt-1 uppercase italic">Pelajar | Developer | Indonesia</p>
+        </div>
+
+        <div class="card-bg p-8 mb-6">
+            <h2 class="text-xl font-bold text-blue-500 mb-4 uppercase">Tentang Saya</h2>
+            <p class="text-gray-300 text-sm leading-relaxed">Halo! Nama saya Arul, seorang pelajar berusia 17 tahun dari Indonesia. Klik menu untuk mengakses fitur.</p>
+        </div>
+
+        <div class="card-bg p-8 mb-10 border-l-4 border-blue-500">
+            <p class="text-gray-300 italic font-light text-sm">"Ngoding itu ngajarin kita banyak hal. Gagal compile? Biasa. Error? Santai."</p>
         </div>
     </div>
 
-    <div class="card-bg p-8 mb-10 border-l-4 border-blue-500">
-        <h2 class="text-xl font-bold text-blue-500 mb-4 italic uppercase tracking-widest">Tentang Ngoding</h2>
-        <p class="text-gray-300 italic font-light leading-relaxed text-sm">
-            "Ngoding itu ngajarin kita banyak hal. Gagal compile? Biasa. Error? Santai. Semua itu cuma bagian dari proses belajar. Sama kayak hidup, gak semua hal langsung berhasil. Kadang kita harus nge-'debug' diri sendiri, hapus kebiasaan buruk, perbaiki logika, terus coba lagi. Jadi kalau hari ini kamu lagi error, jangan nyerah. Besok mungkin udah sukses di-run tanpa bug."
-        </p>
+    <div id="page-getcode" class="feature-page">
+        <h2 class="text-2xl font-bold text-blue-500 mb-6"><i class="fa fa-file-code mr-2"></i> GET SOURCE CODE</h2>
+        <div class="card-bg p-6">
+            <input type="text" id="input-getcode" placeholder="Masukkan URL Target (https://...)">
+            <button onclick="exeGetCode()" class="btn-exe">Tarik Code</button>
+            <div id="term-getcode" class="terminal mt-4"></div>
+        </div>
     </div>
 
-    <div id="menuSidebar" class="sidebar p-6 shadow-2xl overflow-y-auto">
+    <div id="page-encode" class="feature-page">
+        <h2 class="text-2xl font-bold text-yellow-500 mb-6"><i class="fa fa-lock mr-2"></i> ENCODE HARD JS</h2>
+        <div class="card-bg p-6">
+            <textarea id="input-encode" class="input-core bg-[#0f172a] w-full p-4 rounded-xl border border-gray-700 h-32 mb-4" placeholder="Paste script JS lo di sini..."></textarea>
+            <button onclick="exeEncode()" class="btn-exe !background-yellow-600">Encrypt Now</button>
+            <div id="term-encode" class="terminal mt-4 !border-yellow-600 !color-yellow-500"></div>
+        </div>
+    </div>
+
+    <div id="page-tiktok" class="feature-page">
+        <h2 class="text-2xl font-bold text-pink-500 mb-6"><i class="fab fa-tiktok mr-2"></i> TIKTOK DOWNLOADER</h2>
+        <div class="card-bg p-6">
+            <input type="text" id="input-tiktok" placeholder="Paste Link Video TikTok">
+            <button onclick="exeTikTok()" class="btn-exe !bg-pink-600">Download No WM</button>
+            <div id="term-tiktok" class="terminal mt-4 !border-pink-600 !text-pink-400"></div>
+        </div>
+    </div>
+
+    <div id="menuSidebar" class="sidebar p-6 shadow-2xl">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-black text-blue-500 italic uppercase">System Core</h2>
-            <button onclick="toggleMenu()" class="text-3xl text-blue-500 font-bold">&times;</button>
+            <h2 class="text-xl font-black text-blue-500 uppercase">Tools Menu</h2>
+            <button onclick="toggleMenu()" class="text-3xl">&times;</button>
         </div>
-        <ul class="space-y-2 text-gray-300 text-xs font-bold uppercase tracking-widest">
-            <li onclick="selectModule('Get Code')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-file-alt text-blue-300 mr-3 w-5"></i> Get Code</li>
-            <li onclick="selectModule('Encode Hard JS')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-lock text-yellow-600 mr-3 w-5"></i> Encode Hard JS</li>
-            <li onclick="selectModule('Scan Phishing')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-search text-blue-500 mr-3 w-5"></i> Scan Phishing</li>
-            <li onclick="selectModule('TikTok Downloader')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-download text-orange-500 mr-3 w-5"></i> TikTok Downloader</li>
-            <li onclick="selectModule('Search Lagu')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-music text-blue-400 mr-3 w-5"></i> Search Lagu</li>
-            <li onclick="selectModule('DeepSeek AI')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-robot text-gray-400 mr-3 w-5"></i> Chat Bot DeepSeek</li>
-            <li onclick="selectModule('ENC HTML')" class="flex items-center p-3 hover:bg-blue-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-blue-500/30"><i class="fa fa-shield-alt text-yellow-500 mr-3 w-5"></i> ENC HTML</li>
-            <li onclick="location.reload()" class="flex items-center p-3 hover:bg-red-900/40 rounded-lg cursor-pointer transition border border-transparent hover:border-red-500/30 mt-10"><i class="fa fa-power-off text-red-500 mr-3 w-5"></i> Reboot System</li>
+        <ul class="space-y-4 font-bold text-sm uppercase tracking-widest">
+            <li onclick="showPage('home')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fa fa-home mr-3"></i> Dashboard</li>
+            <li onclick="showPage('getcode')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fa fa-file-alt mr-3"></i> Get Code</li>
+            <li onclick="showPage('encode')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fa fa-lock mr-3 text-yellow-500"></i> Encode JS</li>
+            <li onclick="showPage('tiktok')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fab fa-tiktok mr-3 text-pink-500"></i> TikTok Downloader</li>
+            <li onclick="location.reload()" class="p-3 text-red-500 mt-10"><i class="fa fa-power-off mr-3"></i> Reboot</li>
         </ul>
     </div>
 
     <script>
-        let selectedModule = "";
+        function toggleMenu() { document.getElementById('menuSidebar').classList.toggle('active'); }
 
-        function toggleMenu() {
-            document.getElementById('menuSidebar').classList.toggle('active');
-        }
-
-        function log(text, color = "text-blue-400") {
-            const term = document.getElementById('terminalOutput');
-            const time = new Date().toLocaleTimeString('en-GB', { hour12: false });
-            term.innerHTML += `<p class="${color} mb-1 leading-tight">[${time}] > ${text}</p>`;
-            term.scrollTop = term.scrollHeight;
-        }
-
-        function selectModule(name) {
-            selectedModule = name;
-            document.getElementById('activeModule').innerText = "Module Aktif: " + name;
-            log(`Modul ${name} siap tempur!`, "text-green-500");
+        function showPage(pageId) {
+            // Sembunyiin semua halaman
+            document.querySelectorAll('.feature-page').forEach(p => p.classList.remove('active'));
+            // Tampilan halaman yang dipilih
+            document.getElementById('page-' + pageId).classList.add('active');
             toggleMenu();
         }
 
-        // Countdown Ultah
-        const bday = new Date("Nov 29, 2026").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = bday - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('bday-count').innerText = days;
-        }, 1000);
+        function log(termId, text) {
+            const term = document.getElementById(termId);
+            term.innerHTML += `<p>> ${text}</p>`;
+            term.scrollTop = term.scrollHeight;
+        }
 
-        async function runModule() {
-            const input = document.getElementById('targetInput').value;
-            if (!selectedModule) { log("ERROR: Pilih modul dulu di sidebar!", "text-red-500"); return; }
-            if (!input) { log("ERROR: Input target diperlukan!", "text-red-500"); return; }
+        // --- FUNGSI TIAP FITUR ---
+        function exeGetCode() {
+            const val = document.getElementById('input-getcode').value;
+            log('term-getcode', 'Menghubungkan ke target...');
+            window.open(`https://api.allorigins.win/get?url=${encodeURIComponent(val)}`, '_blank');
+            log('term-getcode', 'Selesai. Cek tab baru.');
+        }
 
-            log(`Menjalankan ${selectedModule}...`, "text-yellow-500");
+        function exeEncode() {
+            const val = document.getElementById('input-encode').value;
+            const res = btoa(val.split("").reverse().join(""));
+            log('term-encode', 'Encoded: eval(atob("' + res + '").split("").reverse().join(""))');
+        }
 
-            switch (selectedModule) {
-                case 'Get Code':
-                    log("Bypass proxy diaktifkan...");
-                    window.open(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`, '_blank');
-                    log("Source Code ditarik ke tab baru.", "text-green-400");
-                    break;
-
-                case 'Encode Hard JS':
-                    const enc = btoa(input.split("").reverse().join(""));
-                    log(`LOGIC_REV_B64: eval(atob('${enc}').split('').reverse().join(''))`, "text-white bg-blue-900/50 p-1");
-                    break;
-
-                case 'Scan Phishing':
-                    log("Mencari struktur data mencurigakan...");
-                    setTimeout(() => {
-                        const isRisk = /login|verify|signin|secure|account/i.test(input);
-                        log(isRisk ? "DANGER: High risk phishing pattern!" : "CLEAN: Link relatif aman.", isRisk ? "text-red-500 font-bold" : "text-green-400");
-                    }, 1200);
-                    break;
-
-                case 'TikTok Downloader':
-                    window.open(`https://tikwm.com/?url=${input}`, '_blank');
-                    log("Menghubungkan ke API tikwm...", "text-blue-300");
-                    break;
-
-                case 'Search Lagu':
-                    window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(input)}+lyrics`, '_blank');
-                    log("Database pencarian terbuka.", "text-blue-400");
-                    break;
-
-                case 'DeepSeek AI':
-                    log("DeepSeek Engine: Boss Arul, input '" + input + "' sedang diproses di core V8.", "text-gray-400 italic");
-                    break;
-
-                case 'ENC HTML':
-                    let res = "";
-                    for(let i=0; i<input.length; i++) res += `&#${input.charCodeAt(i)};`;
-                    log("HEX_HTML: " + res, "text-white break-all");
-                    break;
-            }
+        function exeTikTok() {
+            const val = document.getElementById('input-tiktok').value;
+            log('term-tiktok', 'Mengalihkan ke server download...');
+            window.open(`https://tikwm.com/?url=${val}`, '_blank');
         }
     </script>
 </body>
