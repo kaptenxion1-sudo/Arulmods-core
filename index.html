@@ -8,83 +8,104 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background: #0f172a; color: #ffffff; font-family: sans-serif; overflow-x: hidden; }
-        .card-bg { background: #1e293b; border-radius: 20px; border: 1px solid #334155; }
+        .card-bg { background: #1e293b; border-radius: 20px; border: 1px solid #334155; transition: 0.3s; }
+        .card-bg:hover { border-color: #3b82f6; transform: translateY(-5px); }
         .sidebar { background: #0f172a; border-left: 1px solid #334155; width: 280px; position: fixed; right: 0; top: 0; height: 100%; transform: translateX(100%); transition: 0.3s; z-index: 100; }
         .sidebar.active { transform: translateX(0); }
-        .feature-page { display: none; animation: fadeIn 0.4s ease; }
-        .feature-page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .terminal { background: #000; border: 1px solid #3b82f6; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 11px; height: 120px; overflow-y: auto; color: #3b82f6; }
-        input { background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; width: 100%; outline: none; margin-bottom: 10px; }
-        .btn-exe { background: #2563eb; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; text-transform: uppercase; }
+        .page-content { display: none; animation: slideUp 0.4s ease; }
+        .page-content.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .terminal { background: #000; border: 1px solid #3b82f6; border-radius: 12px; padding: 15px; font-family: monospace; color: #3b82f6; height: 150px; overflow-y: auto; }
+        input { background: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 12px; width: 100%; outline: none; margin-bottom: 12px; color: white; }
+        .btn-exe { background: linear-gradient(90deg, #1e40af, #3b82f6); width: 100%; padding: 15px; border-radius: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body class="p-5">
 
     <div class="flex justify-between items-center mb-8">
-        <button onclick="showPage('home')" class="text-blue-500 font-black italic">ARULMODSS</button>
+        <h2 onclick="showPage('dashboard')" class="text-blue-500 font-black italic cursor-pointer">ARULMODSS CORE</h2>
         <button onclick="toggleMenu()" class="text-blue-500 text-2xl bg-[#1e293b] p-2 rounded-xl border border-blue-500/30">
             <i class="fa fa-bars"></i>
         </button>
     </div>
 
-    <div id="page-home" class="feature-page active">
-        <div class="text-center mb-10">
-            <div class="w-24 h-24 rounded-full border-4 border-blue-600 flex items-center justify-center mx-auto mb-4">
-                <span class="text-4xl font-bold text-blue-500">A</span>
+    <div id="page-dashboard" class="page-content active">
+        <div class="text-center mb-8">
+            <div class="w-24 h-24 rounded-full border-4 border-blue-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
+                <span class="text-4xl font-bold text-blue-500 font-mono">A</span>
             </div>
             <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase">ArulMods</h1>
-            <p class="text-gray-400 text-sm mt-1 uppercase italic">Pelajar | Developer | Indonesia</p>
+            <p class="text-gray-400 text-xs mt-1 uppercase tracking-widest italic font-bold">Pelajar | Developer | Indonesia</p>
         </div>
 
-        <div class="card-bg p-8 mb-6">
-            <h2 class="text-xl font-bold text-blue-500 mb-4 uppercase">Tentang Saya</h2>
-            <p class="text-gray-300 text-sm leading-relaxed">Halo! Nama saya Arul, seorang pelajar berusia 17 tahun dari Indonesia. Klik menu untuk mengakses fitur.</p>
+        <div class="card-bg p-6 mb-8 border-l-4 border-blue-500">
+            <h3 class="text-blue-400 font-bold mb-2 uppercase text-xs">System Status: <span class="text-green-500">Online</span></h3>
+            <p class="text-gray-300 text-sm italic">"Pilih senjata lo di bawah buat mulai ngebantai error."</p>
         </div>
 
-        <div class="card-bg p-8 mb-10 border-l-4 border-blue-500">
-            <p class="text-gray-300 italic font-light text-sm">"Ngoding itu ngajarin kita banyak hal. Gagal compile? Biasa. Error? Santai."</p>
+        <div class="grid grid-cols-1 gap-4 mb-10">
+            <div onclick="showPage('getcode')" class="card-bg p-5 flex items-center cursor-pointer border border-transparent">
+                <div class="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center mr-4 text-blue-400 text-xl"><i class="fa fa-file-code"></i></div>
+                <div><h4 class="font-bold text-blue-300">GET SOURCE CODE</h4><p class="text-[10px] text-gray-500 uppercase">Ambil script dari web manapun</p></div>
+            </div>
+
+            <div onclick="showPage('encode')" class="card-bg p-5 flex items-center cursor-pointer border border-transparent">
+                <div class="w-12 h-12 bg-yellow-900/50 rounded-lg flex items-center justify-center mr-4 text-yellow-500 text-xl"><i class="fa fa-lock"></i></div>
+                <div><h4 class="font-bold text-yellow-400">ENCODE HARD JS</h4><p class="text-[10px] text-gray-500 uppercase">Proteksi script kodingan lo</p></div>
+            </div>
+
+            <div onclick="showPage('tiktok')" class="card-bg p-5 flex items-center cursor-pointer border border-transparent">
+                <div class="w-12 h-12 bg-pink-900/50 rounded-lg flex items-center justify-center mr-4 text-pink-500 text-xl"><i class="fab fa-tiktok"></i></div>
+                <div><h4 class="font-bold text-pink-400">TIKTOK DOWNLOADER</h4><p class="text-[10px] text-gray-500 uppercase">Download video tanpa watermark</p></div>
+            </div>
+            
+            <div class="card-bg p-8 border-t-2 border-blue-900/30">
+                <p class="text-gray-400 text-xs italic text-center font-light leading-relaxed">"Ngoding itu ngajarin kita banyak hal. Gagal compile? Biasa. Error? Santai."</p>
+            </div>
         </div>
     </div>
 
-    <div id="page-getcode" class="feature-page">
-        <h2 class="text-2xl font-bold text-blue-500 mb-6"><i class="fa fa-file-code mr-2"></i> GET SOURCE CODE</h2>
+    <div id="page-getcode" class="page-content">
+        <button onclick="showPage('dashboard')" class="text-blue-400 text-sm mb-4"><i class="fa fa-arrow-left mr-2"></i> Kembali</button>
+        <h2 class="text-2xl font-black text-blue-500 mb-6 uppercase italic">Source Scraper</h2>
         <div class="card-bg p-6">
             <input type="text" id="input-getcode" placeholder="Masukkan URL Target (https://...)">
-            <button onclick="exeGetCode()" class="btn-exe">Tarik Code</button>
+            <button onclick="exeGetCode()" class="btn-exe">Tarik Source</button>
             <div id="term-getcode" class="terminal mt-4"></div>
         </div>
     </div>
 
-    <div id="page-encode" class="feature-page">
-        <h2 class="text-2xl font-bold text-yellow-500 mb-6"><i class="fa fa-lock mr-2"></i> ENCODE HARD JS</h2>
+    <div id="page-encode" class="page-content">
+        <button onclick="showPage('dashboard')" class="text-yellow-500 text-sm mb-4"><i class="fa fa-arrow-left mr-2"></i> Kembali</button>
+        <h2 class="text-2xl font-black text-yellow-500 mb-6 uppercase italic">Obfuscator JS</h2>
         <div class="card-bg p-6">
-            <textarea id="input-encode" class="input-core bg-[#0f172a] w-full p-4 rounded-xl border border-gray-700 h-32 mb-4" placeholder="Paste script JS lo di sini..."></textarea>
-            <button onclick="exeEncode()" class="btn-exe !background-yellow-600">Encrypt Now</button>
-            <div id="term-encode" class="terminal mt-4 !border-yellow-600 !color-yellow-500"></div>
+            <textarea id="input-encode" class="input-core bg-[#0f172a] w-full p-4 rounded-xl border border-gray-700 h-40 mb-4 text-white outline-none" placeholder="Paste script JS lo di sini..."></textarea>
+            <button onclick="exeEncode()" class="btn-exe !bg-yellow-600">Encrypt Script</button>
+            <div id="term-encode" class="terminal mt-4 !border-yellow-600 !text-yellow-500"></div>
         </div>
     </div>
 
-    <div id="page-tiktok" class="feature-page">
-        <h2 class="text-2xl font-bold text-pink-500 mb-6"><i class="fab fa-tiktok mr-2"></i> TIKTOK DOWNLOADER</h2>
+    <div id="page-tiktok" class="page-content">
+        <button onclick="showPage('dashboard')" class="text-pink-500 text-sm mb-4"><i class="fa fa-arrow-left mr-2"></i> Kembali</button>
+        <h2 class="text-2xl font-black text-pink-500 mb-6 uppercase italic">TikTok Bypass</h2>
         <div class="card-bg p-6">
             <input type="text" id="input-tiktok" placeholder="Paste Link Video TikTok">
-            <button onclick="exeTikTok()" class="btn-exe !bg-pink-600">Download No WM</button>
+            <button onclick="exeTikTok()" class="btn-exe !bg-pink-600">Download Video</button>
             <div id="term-tiktok" class="terminal mt-4 !border-pink-600 !text-pink-400"></div>
         </div>
     </div>
 
     <div id="menuSidebar" class="sidebar p-6 shadow-2xl">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-black text-blue-500 uppercase">Tools Menu</h2>
-            <button onclick="toggleMenu()" class="text-3xl">&times;</button>
+            <h2 class="text-xl font-black text-blue-500 uppercase tracking-tighter italic">System Core</h2>
+            <button onclick="toggleMenu()" class="text-3xl text-blue-500">&times;</button>
         </div>
-        <ul class="space-y-4 font-bold text-sm uppercase tracking-widest">
-            <li onclick="showPage('home')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fa fa-home mr-3"></i> Dashboard</li>
-            <li onclick="showPage('getcode')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fa fa-file-alt mr-3"></i> Get Code</li>
-            <li onclick="showPage('encode')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fa fa-lock mr-3 text-yellow-500"></i> Encode JS</li>
-            <li onclick="showPage('tiktok')" class="p-3 hover:bg-gray-800 rounded-xl cursor-pointer"><i class="fab fa-tiktok mr-3 text-pink-500"></i> TikTok Downloader</li>
-            <li onclick="location.reload()" class="p-3 text-red-500 mt-10"><i class="fa fa-power-off mr-3"></i> Reboot</li>
+        <ul class="space-y-4 font-bold text-xs uppercase tracking-[0.2em]">
+            <li onclick="showPage('dashboard')" class="p-3 hover:bg-blue-900/30 rounded-xl cursor-pointer transition"><i class="fa fa-home mr-3 text-blue-400"></i> Dashboard</li>
+            <li onclick="showPage('getcode')" class="p-3 hover:bg-blue-900/30 rounded-xl cursor-pointer transition"><i class="fa fa-file-alt mr-3 text-blue-400"></i> Get Code</li>
+            <li onclick="showPage('encode')" class="p-3 hover:bg-blue-900/30 rounded-xl cursor-pointer transition"><i class="fa fa-lock mr-3 text-yellow-600"></i> Encode JS</li>
+            <li onclick="showPage('tiktok')" class="p-3 hover:bg-blue-900/30 rounded-xl cursor-pointer transition"><i class="fab fa-tiktok mr-3 text-pink-600"></i> TikTok</li>
+            <li onclick="location.reload()" class="p-3 text-red-500 mt-20 border-t border-gray-800 pt-10"><i class="fa fa-power-off mr-3"></i> Reboot</li>
         </ul>
     </div>
 
@@ -92,37 +113,40 @@
         function toggleMenu() { document.getElementById('menuSidebar').classList.toggle('active'); }
 
         function showPage(pageId) {
-            // Sembunyiin semua halaman
-            document.querySelectorAll('.feature-page').forEach(p => p.classList.remove('active'));
-            // Tampilan halaman yang dipilih
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
-            toggleMenu();
+            if(document.getElementById('menuSidebar').classList.contains('active')) toggleMenu();
+            window.scrollTo(0,0);
         }
 
         function log(termId, text) {
             const term = document.getElementById(termId);
-            term.innerHTML += `<p>> ${text}</p>`;
+            term.innerHTML += `<p class="mb-1">> ${text}</p>`;
             term.scrollTop = term.scrollHeight;
         }
 
-        // --- FUNGSI TIAP FITUR ---
         function exeGetCode() {
             const val = document.getElementById('input-getcode').value;
-            log('term-getcode', 'Menghubungkan ke target...');
+            if(!val) return alert("URL Kosong!");
+            log('term-getcode', 'Scanning target: ' + val);
             window.open(`https://api.allorigins.win/get?url=${encodeURIComponent(val)}`, '_blank');
-            log('term-getcode', 'Selesai. Cek tab baru.');
+            log('term-getcode', 'Sukses! Source Code dibuka di tab baru.');
         }
 
         function exeEncode() {
             const val = document.getElementById('input-encode').value;
+            if(!val) return alert("Script Kosong!");
             const res = btoa(val.split("").reverse().join(""));
-            log('term-encode', 'Encoded: eval(atob("' + res + '").split("").reverse().join(""))');
+            log('term-encode', 'Encrypting...');
+            log('term-encode', 'HASIL: eval(atob("' + res + '").split("").reverse().join(""))');
         }
 
         function exeTikTok() {
             const val = document.getElementById('input-tiktok').value;
-            log('term-tiktok', 'Mengalihkan ke server download...');
+            if(!val) return alert("Link Kosong!");
+            log('term-tiktok', 'Fetching video data...');
             window.open(`https://tikwm.com/?url=${val}`, '_blank');
+            log('term-tiktok', 'Selesai. Cek server download.');
         }
     </script>
 </body>
